@@ -6,13 +6,24 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
-class DiabetesClassifier(object):
-    __diabetesURI = os.path.join(os.getcwd(), "datasets/pima-indians-diabetes.txt")
+class BalanceScaleClassifier(object):
+
+    __irisURI = os.path.join(os.getcwd(), "datasets/balance-scale.txt")
+
+    def __balanceScaleLabelToFloat(self, bstr):
+        str = bstr.decode("utf-8")
+        if str == "B":
+            return 0.0
+        if str == "R":
+            return 1.0
+        elif str == "L":
+            return 2.0
 
     def __extractFeaturesAndLabels(self):
-        dataset = np.loadtxt(self.__diabetesURI, delimiter=",")
-        features = dataset[:, 0:8]
-        labels = dataset[:, 8]
+        dataset = np.loadtxt(self.__irisURI, delimiter=",", converters={0: lambda s: self.__balanceScaleLabelToFloat(s)})
+        #print(dataset.shape)
+        features = dataset[:, 1:5]
+        labels = dataset[:, 0]
         return features, labels
 
     def __accuracyAndStd(self, model):

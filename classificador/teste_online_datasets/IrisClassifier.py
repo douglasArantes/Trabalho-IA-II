@@ -1,15 +1,15 @@
 import numpy as np
 import os
-
-from sklearn import metrics
+from sklearn.cross_validation import StratifiedKFold
+from sklearn import cross_validation as crossV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
 class IrisClassifier(object):
-    irisUrl = os.path.join(os.getcwd(), "datasets/iris.txt")
+    __irisURI = os.path.join(os.getcwd(), "datasets/iris.txt")
 
-    def irisLabelToFloat(self, bstr):
+    def __irisLabelToFloat(self, bstr):
         str = bstr.decode("utf-8")
         if str == "Iris-setosa":
             return 0.0
@@ -18,52 +18,45 @@ class IrisClassifier(object):
         else:
             return 2.0
 
-    def extractFeaturesAndLabels(self):
-        dataset = np.loadtxt(self.irisUrl, delimiter=",", converters={4: lambda s: self.irisLabelToFloat(s)})
+    def __extractFeaturesAndLabels(self):
+        dataset = np.loadtxt(self.__irisURI, delimiter=",", converters={4: lambda s: self.__irisLabelToFloat(s)})
         # print(dataset.shape)
-        features = dataset[:, 0:3]
+        features = dataset[:, 0:4]
         labels = dataset[:, 4]
         return features, labels
 
-    def printInfo(self, expected, predicted):
-        print("Relatório de Classificação")
-        print(metrics.classification_report(expected, predicted))
-        print("Matriz de Confusão")
-        print(metrics.confusion_matrix(expected, predicted))
+    def __accuracyAndStd(self, model):
+        features, labels = self.__extractFeaturesAndLabels()
+        skf = StratifiedKFold(labels, n_folds=10, shuffle=True, random_state=None)
 
-    def knnOnIrisDataset(self):
-        print("\nAlgoritmos KNN - Iris Dataset")
+        listAccuracysAndStd = []
 
-        features, labels = self.extractFeaturesAndLabels()
+        for trainIndex, testIndex in skf:
+            # print("TRAIN:", train_index, "TEST:", test_index)
+            featuresTrain, featuresTest = features[trainIndex], features[testIndex]
+            labelsTrain, labelsTest = labels[trainIndex], labels[testIndex]
+            model.fit(featuresTrain, labelsTrain)
+            scores = crossV.cross_val_score(model, features, labels, scoring='accuracy')
+            listAccuracysAndStd.append((scores.mean(), scores.std()))
 
-        model = KNeighborsClassifier()
-        model.fit(features, labels)
-        #print(model)
+        somaAcc = 0.0
+        somaStd = 0.0
+        for acc, std in listAccuracysAndStd:
+            somaAcc += acc
+            somaStd += std
 
-        expected = labels
-        predicted = model.predict(features)
-        self.printInfo(expected, predicted)
+        print("Accuracy: ", somaAcc / 10)
+        print("Standard Deviation: ", somaStd / 10)
 
-    def naiveBayesOnIrisDataset(self):
-        print("\nAlgoritmos Naive Bayes - Iris Dataset")
-        features, labels = self.extractFeaturesAndLabels()
+    def printAccruraciesAndStds(self):
+        decisionTreeModel = DecisionTreeClassifier()
+        knnModel = KNeighborsClassifier()
+        naiveBayesModel = GaussianNB()
 
-        model = GaussianNB()
-        model.fit(features, labels)
-        #print(model)
+        print("Decision Tree Model")
+        self.__accuracyAndStd(decisionTreeModel)
+        print("\nKNN Model")
+        self.__accuracyAndStd(knnModel)
+        print("\nNaive Bayes Model")
+        self.__accuracyAndStd(naiveBayesModel)
 
-        expected = labels
-        predicted = model.predict(features)
-        self.printInfo(expected, predicted)
-
-    def decisionTreeOnIrisDataset(self):
-        print("\nAlgoritmos Decision Tree - Iris Dataset")
-        features, labels = self.extractFeaturesAndLabels()
-
-        model = DecisionTreeClassifier()
-        model.fit(features, labels)
-        #print(model)
-
-        expected = labels
-        predicted = model.predict(features)
-        self.printInfo(expected, predicted)
