@@ -28,26 +28,12 @@ class BalanceScaleClassifier(object):
 
     def __accuracyAndStd(self, model):
         features, labels = self.__extractFeaturesAndLabels()
-        skf = StratifiedKFold(labels, n_folds=10, shuffle=True, random_state=None)
+        scores = crossV.cross_val_score(model, features, labels, cv=10, scoring='accuracy')
 
-        listAccuracysAndStd = []
-
-        for trainIndex, testIndex in skf:
-            # print("TRAIN:", train_index, "TEST:", test_index)
-            featuresTrain, featuresTest = features[trainIndex], features[testIndex]
-            labelsTrain, labelsTest = labels[trainIndex], labels[testIndex]
-            model.fit(featuresTrain, labelsTrain)
-            scores = crossV.cross_val_score(model, features, labels, scoring='accuracy')
-            listAccuracysAndStd.append((scores.mean(), scores.std()))
-
-        somaAcc = 0.0
-        somaStd = 0.0
-        for acc, std in listAccuracysAndStd:
-            somaAcc += acc
-            somaStd += std
-
-        print("Accuracy: ", somaAcc / 10)
-        print("Standard Deviation: ", somaStd / 10)
+        print("Accuracy of 10 folds:")
+        for score in scores:
+            print(score)
+        print("Standard Deviation of Accuracy %s" % scores.std())
 
     def printAccruraciesAndStds(self):
         decisionTreeModel = DecisionTreeClassifier()

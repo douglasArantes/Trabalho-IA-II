@@ -1,18 +1,19 @@
 import numpy as np
 import os
-from sklearn.cross_validation import StratifiedKFold
+
 from sklearn import cross_validation as crossV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
-class DiabetesClassifier(object):
-    __diabetesURI = os.path.join(os.getcwd(), "datasets/pima-indians-diabetes.txt")
+class GlassClassifier(object):
+    __glassURI = os.path.join(os.getcwd(), "datasets/glass.txt")
 
     def __extractFeaturesAndLabels(self):
-        dataset = np.loadtxt(self.__diabetesURI, delimiter=",")
-        features = dataset[:, 0:8]
-        labels = dataset[:, 8]
+        dataset = np.loadtxt(self.__glassURI, delimiter=",")
+        # print(dataset.shape)
+        features = dataset[:, 1:10]
+        labels = dataset[:, 10]
         return features, labels
 
     def __accuracyAndStd(self, model):

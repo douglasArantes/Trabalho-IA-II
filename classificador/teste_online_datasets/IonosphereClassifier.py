@@ -6,13 +6,21 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
-class DiabetesClassifier(object):
-    __diabetesURI = os.path.join(os.getcwd(), "datasets/pima-indians-diabetes.txt")
+class IonosphereClassifier(object):
+    __ionosphereURI = os.path.join(os.getcwd(), "datasets/ionosphere.txt")
+
+    def __ionosphereLabelToFloat(self, bstr):
+        str = bstr.decode("utf-8")
+        if str == "b":
+            return 0.0
+        elif str == "g":
+            return 1.0
 
     def __extractFeaturesAndLabels(self):
-        dataset = np.loadtxt(self.__diabetesURI, delimiter=",")
-        features = dataset[:, 0:8]
-        labels = dataset[:, 8]
+        dataset = np.loadtxt(self.__ionosphereURI, delimiter=",", converters={34: lambda s: self.__ionosphereLabelToFloat(s)})
+        # print(dataset.shape)
+        features = dataset[:, 0:34]
+        labels = dataset[:, 34]
         return features, labels
 
     def __accuracyAndStd(self, model):
