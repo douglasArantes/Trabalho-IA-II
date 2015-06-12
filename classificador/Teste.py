@@ -4,13 +4,14 @@ import codecs
 from classificador.modelos.IrisClassifier import IrisClassifier
 from classificador.modelos.DiabetesClassifier import DiabetesClassifier
 from classificador.modelos.BalanceScaleClassifier import BalanceScaleClassifier
-from classificador.modelos.BanknoteClassifier import BanknoteClassifier
+from classificador.modelos.BankAuthenticationClassifier import BanknoteAuthenticationClassifier
 from classificador.modelos.GlassClassifier import GlassClassifier
 from classificador.modelos.HabermanClassifier import HabermanClassifier
 from classificador.modelos.IonosphereClassifier import IonosphereClassifier
 from classificador.modelos.SpamClassifier import SpamClassifier
 from classificador.modelos.ImageSegmentationClassifier import ImageSegmentationClassifier
 from classificador.modelos.WineClassifier import WineClassifier
+
 
 class Teste:
 
@@ -64,7 +65,7 @@ class Teste:
 
         banknoteWriter.write("-------- Dataset Banknote --------")
         print("-------- Dataset Banknote --------\n")
-        BanknoteClassifier().printAccruraciesAndStds(banknoteWriter)
+        BanknoteAuthenticationClassifier().printAccruraciesAndStds(banknoteWriter)
         print()
 
         glassWriter.write("-------- Dataset Glass  --------")
