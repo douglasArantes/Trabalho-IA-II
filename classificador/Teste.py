@@ -4,7 +4,7 @@ import codecs
 from classificador.modelos.IrisClassifier import IrisClassifier
 from classificador.modelos.DiabetesClassifier import DiabetesClassifier
 from classificador.modelos.BalanceScaleClassifier import BalanceScaleClassifier
-from classificador.modelos.SonarClassifier import SonarClassifier
+from classificador.modelos.BanknoteClassifier import BanknoteClassifier
 from classificador.modelos.GlassClassifier import GlassClassifier
 from classificador.modelos.HabermanClassifier import HabermanClassifier
 from classificador.modelos.IonosphereClassifier import IonosphereClassifier
@@ -35,8 +35,8 @@ class Teste:
     primaIndiansFile = os.path.join(os.getcwd(), "primaIndians_output.txt")
     primaIndiansWriter = codecs.open(primaIndiansFile, 'w', "utf-8")
 
-    sonarAllFile = os.path.join(os.getcwd(), "sonarAll_output.txt")
-    sonarAllWriter = codecs.open(sonarAllFile, 'w', "utf-8")
+    banknoteFile = os.path.join(os.getcwd(), "banknoteAuthentication_output.txt")
+    banknoteWriter = codecs.open(banknoteFile, 'w', "utf-8")
 
     spamBaseFile = os.path.join(os.getcwd(), "spamBase_output.txt")
     spamBaseWriter = codecs.open(spamBaseFile, 'w', "utf-8")
@@ -62,9 +62,9 @@ class Teste:
         BalanceScaleClassifier().printAccruraciesAndStds(balanceScaleWriter)
         print()
 
-        sonarAllWriter.write("-------- Dataset Sonar All --------")
-        print("-------- Dataset Sonar All --------\n")
-        SonarClassifier().printAccruraciesAndStds(sonarAllWriter)
+        banknoteWriter.write("-------- Dataset Banknote --------")
+        print("-------- Dataset Banknote --------\n")
+        BanknoteClassifier().printAccruraciesAndStds(banknoteWriter)
         print()
 
         glassWriter.write("-------- Dataset Glass  --------")
