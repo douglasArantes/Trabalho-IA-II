@@ -1,5 +1,3 @@
-import os
-
 from sklearn import cross_validation as crossV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier

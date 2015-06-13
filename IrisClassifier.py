@@ -1,6 +1,10 @@
-from classificador.modelos.BaseClassifier import BaseClassifier
-import numpy as np
 import os
+
+import numpy as np
+
+from BaseClassifier import BaseClassifier
+#import BaseClassifier
+
 
 class IrisClassifier(BaseClassifier):
 

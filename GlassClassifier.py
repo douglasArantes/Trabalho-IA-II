@@ -1,7 +1,10 @@
-import numpy as np
 import os
 
-from classificador.modelos.BaseClassifier import BaseClassifier
+import numpy as np
+
+from BaseClassifier import BaseClassifier
+#import BaseClassifier
+
 
 class GlassClassifier(BaseClassifier):
     datasetURI = os.path.join(os.getcwd(), "datasets/glass.txt")

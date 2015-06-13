@@ -1,53 +1,51 @@
 import os
 import codecs
 
-from classificador.modelos.IrisClassifier import IrisClassifier
-from classificador.modelos.DiabetesClassifier import DiabetesClassifier
-from classificador.modelos.BalanceScaleClassifier import BalanceScaleClassifier
-from classificador.modelos.BankAuthenticationClassifier import BanknoteAuthenticationClassifier
-from classificador.modelos.GlassClassifier import GlassClassifier
-from classificador.modelos.HabermanClassifier import HabermanClassifier
-from classificador.modelos.IonosphereClassifier import IonosphereClassifier
-from classificador.modelos.SpamClassifier import SpamClassifier
-from classificador.modelos.ImageSegmentationClassifier import ImageSegmentationClassifier
-from classificador.modelos.WineClassifier import WineClassifier
+from IrisClassifier import IrisClassifier
+from DiabetesClassifier import DiabetesClassifier
+from BalanceScaleClassifier import BalanceScaleClassifier
+from BanknoteAuthenticationClassifier import BanknoteAuthenticationClassifier
+from GlassClassifier import GlassClassifier
+from HabermanClassifier import HabermanClassifier
+from IonosphereClassifier import IonosphereClassifier
+from SpamClassifier import SpamClassifier
+from ImageSegmentationClassifier import ImageSegmentationClassifier
+from WineClassifier import WineClassifier
 
 
 class Teste:
 
-    balanceScaleFile = os.path.join(os.getcwd(), "balanceScale_output.txt")
+    balanceScaleFile = os.path.join(os.getcwd(), "outputs/balanceScale_output.txt")
     balanceScaleWriter = codecs.open(balanceScaleFile, 'w', "utf-8")
 
-    glassFile = os.path.join(os.getcwd(), "glass_output.txt")
+    glassFile = os.path.join(os.getcwd(), "outputs/glass_output.txt")
     glassWriter = codecs.open(glassFile, 'w', "utf-8")
 
-    habermanFile = os.path.join(os.getcwd(), "haberman_output.txt")
+    habermanFile = os.path.join(os.getcwd(), "outputs/outphaberman_output.txt")
     habermanWriter = codecs.open(habermanFile, 'w', "utf-8")
 
-    imgSegFile = os.path.join(os.getcwd(), "imgSegment_output.txt")
+    imgSegFile = os.path.join(os.getcwd(), "outputs/imgSegment_output.txt")
     imgSegWriter = codecs.open(imgSegFile, 'w', "utf-8")
 
-    ionosphereFile = os.path.join(os.getcwd(), "ionosphere_output.txt")
+    ionosphereFile = os.path.join(os.getcwd(), "outputs/ionosphere_output.txt")
     ionosphereWriter = codecs.open(ionosphereFile, 'w', "utf-8")
 
-    irisFile = os.path.join(os.getcwd(), "iris_output.txt")
+    irisFile = os.path.join(os.getcwd(), "outputs/iris_output.txt")
     irisWriter = codecs.open(irisFile, 'w', "utf-8")
 
-    primaIndiansFile = os.path.join(os.getcwd(), "primaIndians_output.txt")
+    primaIndiansFile = os.path.join(os.getcwd(), "outputs/primaIndians_output.txt")
     primaIndiansWriter = codecs.open(primaIndiansFile, 'w', "utf-8")
 
-    banknoteFile = os.path.join(os.getcwd(), "banknoteAuthentication_output.txt")
+    banknoteFile = os.path.join(os.getcwd(), "outputs/banknoteAuthentication_output.txt")
     banknoteWriter = codecs.open(banknoteFile, 'w', "utf-8")
 
-    spamBaseFile = os.path.join(os.getcwd(), "spamBase_output.txt")
+    spamBaseFile = os.path.join(os.getcwd(), "outputs/spamBase_output.txt")
     spamBaseWriter = codecs.open(spamBaseFile, 'w', "utf-8")
 
-    wineFile = os.path.join(os.getcwd(), "wine_output.txt")
+    wineFile = os.path.join(os.getcwd(), "outputs/wine_output.txt")
     wineWriter = codecs.open(wineFile, 'w', "utf-8")
 
-
     if __name__ == "__main__":
-
         irisWriter.write("-------- Dataset Iris --------")
         print("-------- Dataset Iris --------\n")
         IrisClassifier().printAccruraciesAndStds(irisWriter)

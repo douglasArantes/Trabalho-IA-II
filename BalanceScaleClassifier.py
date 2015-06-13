@@ -1,6 +1,10 @@
 import os
+
 import numpy as np
-from classificador.modelos.BaseClassifier import BaseClassifier
+
+from BaseClassifier import BaseClassifier
+#import BaseClassifier
+
 
 class BalanceScaleClassifier(BaseClassifier):
 

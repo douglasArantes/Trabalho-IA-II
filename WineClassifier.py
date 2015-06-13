@@ -1,12 +1,8 @@
-import numpy as np
 import os
 
-from sklearn import cross_validation as crossV
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-from classificador.modelos.BaseClassifier import BaseClassifier
+import numpy as np
 
+from BaseClassifier import BaseClassifier
 
 class WineClassifier(BaseClassifier):
 
